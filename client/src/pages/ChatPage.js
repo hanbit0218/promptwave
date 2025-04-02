@@ -197,7 +197,9 @@ const ChatPage = ({ conversationHistory, setConversationHistory }) => {
     
     try {
       // Send message to backend
-      const response = await axios.post('/chat', {
+      // This is the modified part for Vercel deployment
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await axios.post(`${apiUrl}/chat`, {
         message: message.trim(),
         conversation_history: conversationHistory,
         model_choice: selectedModel
@@ -236,7 +238,7 @@ const ChatPage = ({ conversationHistory, setConversationHistory }) => {
   return (
     <ChatContainer>
       <ChatHeader>
-        <HeaderTitle><FaRobot /> AI Chatbot</HeaderTitle>
+        <HeaderTitle><FaRobot /> PromptWave</HeaderTitle>
         <ModelSelector 
           selectedModel={selectedModel} 
           onChange={handleModelChange} 
