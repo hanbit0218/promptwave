@@ -121,8 +121,13 @@ app.get('/models', (req, res) => {
   res.json({ models: Object.keys(AVAILABLE_MODELS) });
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-  console.log(`Available models: ${Object.keys(AVAILABLE_MODELS).join(', ')}`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+    console.log(`Available models: ${Object.keys(AVAILABLE_MODELS).join(', ')}`);
+  });
+}
+
+// Export the Express API for Vercel
+module.exports = app;
